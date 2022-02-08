@@ -51,7 +51,7 @@ if [ ! -e ${TEMP_FBTERMRC} ]; then
   echo "file not exists. stop the process.."
   exit 1
 fi
-sed -i -E 's/^font-size=\d{1-2}/font-size=16' "${TEMP_FBTERMRC}"
+sudo sed -i -E 's/^font-size=\d{1-2}/font-size=16' "${TEMP_FBTERMRC}"
 
 echo "-+-+-+- fbterm configuration complete. -+-+-+-"
 
@@ -72,6 +72,23 @@ cat <<-EOF | sudo tee -a ${TEMP_UIM} >/dev/null
 EOF
 
 echo "-+-+-+- uim configuration complete. -+-+-+-"
+
+# default key bindings configuration
+
+gsettings set org.gnome.desktop.interface gtk-key-theme "Emacs"
+
+# change caps lock to ctrl key
+
+# XKBOPTIONS="" -> XKBOPTIONS="ctrl:nocaps"
+readonly TEMP_KEYBOARD=/etc/default/keyboard
+if [ ! -e ${TEMP_KEYBOARD} ]; then
+  echo "${TEMP_KEYBOARD}.."
+  echo "file not exists. stop the process.."
+  exit 1
+fi
+sudo sed -i -E 's/^XKBOPTIONS=.*/XKBOPTIONS="ctrl:nocaps"' "${TEMP_KEYBOARD}"
+
+echo "-+-+-+- default key bindings configuration complete. -+-+-+-"
 
 # tools
 

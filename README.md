@@ -2,7 +2,7 @@
 
 ラズパイに ubuntu-server（21.10） を構築する時のスクリプト
 
-## 手順
+## 使い方
 
 1. ubuntu-server 64bit のイメージを準備する
 1. cloud-init の user-data を以下のとおり編集
