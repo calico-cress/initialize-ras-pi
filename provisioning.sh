@@ -59,7 +59,7 @@ if [ ! -e ${TEMP_KEYBOARD} ]; then
   echo "file not exists. stop the process.."
   exit 1
 fi
-sudo sed -i -E 's/^XKBOPTIONS=.*/XKBOPTIONS="ctrl:nocaps"' "${TEMP_KEYBOARD}"
+sudo sed -i -r 's/^XKBOPTIONS=.*/XKBOPTIONS="ctrl:nocaps"/' "${TEMP_KEYBOARD}"
 
 echo "-+-+-+- default key bindings configuration complete. -+-+-+-"
 
@@ -83,7 +83,6 @@ echo "-+-+-+- emacs configuration complete. -+-+-+-"
 
 sudo apt -y install \
   fonts-migmix \
-#  task-japanese \
   locales-all
 
 sudo localectl set-locale LANG=ja_JP.UTF-8 LANGUAGE="ja_JP:ja"
@@ -97,7 +96,7 @@ sudo ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime &&
 # ※ fbterm の初回実行時に作成されるっぽい。github で管理するか..
 # readonly TEMP_FBTERMRC=~/.fbtermrc
 # [ ! -e ${TEMP_FBTERMR} ] && touch ${TEMP_FBTERMR}
-# sudo sed -i -E 's/^font-size=[0-9]{1-2}/font-size=16' "${TEMP_FBTERMRC}"
+# sudo sed -i -r 's/^font-size=[0-9]{1-2}/font-size=17/' "${TEMP_FBTERMRC}"
 
 echo "-+-+-+- localization complete. -+-+-+-"
 
