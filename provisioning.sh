@@ -22,7 +22,7 @@ sudo usermod -aG video "${USER}"
 sudo chmod u+s "$(which fbterm)"
 
 # fbterm のエイリアス等設定
-readonly TEMP_REF_BASHRC=https://raw.githubusercontent.com/calico-cress/initialize-ras-pi/main/reference-files/.bashrc
+readonly TEMP_REF_BASHRC=https://raw.githubusercontent.com/cresson-cat/initialize-ras-pi/main/reference-files/.bashrc
 readonly TEMP_BASHRC=~/.bashrc
 [ ! -e "${TEMP_BASHRC}" ] && touch "${TEMP_BASHRC}"
 curl "${TEMP_REF_BASHRC}" >>"${TEMP_BASHRC}"
@@ -32,8 +32,8 @@ echo "-+-+-+- fbterm configuration complete. -+-+-+-"
 # uim
 
 sudo apt -y install \
-     uim-fep \
-     uim-mozc
+  uim-fep \
+  uim-mozc
 
 # ~/.uim 追記
 readonly TEMP_UIM=~/.uim
@@ -67,7 +67,7 @@ echo "-+-+-+- default key bindings configuration complete. -+-+-+-"
 
 sudo apt -y install emacs
 
-readonly TEMP_REF_INIT_EL=https://raw.githubusercontent.com/calico-cress/initialize-ras-pi/main/reference-files/init.el
+readonly TEMP_REF_INIT_EL=https://raw.githubusercontent.com/cresson-cat/initialize-ras-pi/main/reference-files/init.el
 readonly TEMP_EMACS=~/.emacs.d/init.el
 TEMP_EMACS_DIR=$(dirname ${TEMP_EMACS})
 readonly TEMP_EMACS_DIR
@@ -93,12 +93,14 @@ sudo ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime &&
   echo Asia/Tokyo | sudo tee /etc/timezone >/dev/null
 
 # fbterm の設定値を変更（font-sizeのみ）
-# ※ fbterm の初回実行時に作成されるっぽい。github で管理するか..
-# readonly TEMP_FBTERMRC=~/.fbtermrc
-# [ ! -e ${TEMP_FBTERMR} ] && touch ${TEMP_FBTERMR}
+# ※ 設定ファイルは fbterm の初回実行時に作成されるっぽい。追記できないので Github 管理されている資材をコピーする
 # sudo sed -i -r 's/^font-size=[0-9]{1-2}/font-size=17/' "${TEMP_FBTERMRC}"
+readonly TEMP_REF_FBTERMRC=https://raw.githubusercontent.com/cresson-cat/initialize-ras-pi/main/reference-files/.fbtermrc
+readonly TEMP_FBTERMRC=~/.fbtermrc
+if [ ! -e ${TEMP_FBTERMRC} ]; then
+  curl ${TEMP_REF_FBTERMRC} >${TEMP_FBTERMRC}
+fi
 
 echo "-+-+-+- localization complete. -+-+-+-"
 
 echo "-+-+-+- please reboot. -+-+-+-"
-
